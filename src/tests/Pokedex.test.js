@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
+import pokemons from '../data';
 
 describe('Testando o componente `Pokedex`', () => {
   it('deveria mostrar um h2 com o texto `Encountered pokémons`', () => {
@@ -14,26 +15,25 @@ describe('Testando o componente `Pokedex`', () => {
     expect(titlePokedex).toBeInTheDocument();
   });
 
-  it('deveria mostrar o pŕoximo pokemon quando clicado no botão `Próximo pokémon`',
-    () => {
-      renderWithRouter(<App />);
+  it(`deveria mostrar o pŕoximo pokemon quando clicado no botão 'Próximo pokémon'
+    um a um`,
+  () => {
+    renderWithRouter(<App />);
 
-      const pokemonNamePikachu = screen.getByText('Pikachu');
-      expect(pokemonNamePikachu).toBeInTheDocument();
-
+    pokemons.forEach(({ name }, index) => {
+      const pokemonName = screen.getByTestId('pokemon-name');
       const btnNextPokemon = screen.getByRole('button', { name: 'Próximo pokémon' });
-      expect(btnNextPokemon).toBeInTheDocument();
-      userEvent.click(btnNextPokemon);
 
-      const pokemonNameCharmander = screen.getByText('Charmander');
-      expect(pokemonNameCharmander).toBeInTheDocument();
+      expect(pokemonName.textContent).toBe(name);
 
-      expect(screen.getAllByAltText(/sprite/).length).toBe(1);
-
-      userEvent.click(btnNextPokemon);
-      screen.getAllByAltText(/sprite/);
-      expect(screen.getAllByAltText(/sprite/).length).toBe(1);
+      if (index !== pokemons.length - 1) {
+        userEvent.click(btnNextPokemon);
+      } else {
+        userEvent.click(btnNextPokemon);
+        expect(pokemonName.textContent).toBe('Pikachu');
+      }
     });
+  });
 
   it('deveria mostrar todos botões de filtro', () => {
     renderWithRouter(<App />);
