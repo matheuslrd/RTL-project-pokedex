@@ -38,9 +38,6 @@ describe('Testando o componente `Pokedex`', () => {
   it('deveria mostrar todos botões de filtro', () => {
     renderWithRouter(<App />);
 
-    const arrayTypesPokemons = [
-      'Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
-
     const allButtonsFilters = screen.getAllByTestId('pokemon-type-button');
     allButtonsFilters.forEach((button) => expect(button).toBeInTheDocument());
   });
