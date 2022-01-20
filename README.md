@@ -1,4 +1,4 @@
-# Boas vindas ao repositório do projeto Spotify Clone!
+# Boas vindas ao repositório do projeto RTL-Pokedex!
 
 Este projeto foi desenvolvido á fins de estudo para a Trybe, para testar
 conhecimentos em React Testing Library e sua integração com Redux!
